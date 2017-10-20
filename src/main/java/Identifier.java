@@ -24,7 +24,7 @@ interface Identifier extends Comparable<Identifier> {
     void addChar(char character);
 
     /**
-     * Removes the element at index 'index' of the char[].
+     * Removes the element at index 'index' of the identifer's variable.
      * @pre -
      * @post - The element at index 'index' has been removed
      */

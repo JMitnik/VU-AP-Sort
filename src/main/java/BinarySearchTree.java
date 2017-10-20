@@ -4,18 +4,21 @@ import java.util.Iterator;
 public class BinarySearchTree<E extends Comparable<E>> implements BinarySearchTreeInterface<E> {
     private BSTNodeInterface<E> root;
 
-    public BinarySearchTree() {
+    BinarySearchTree() {
         init();
     }
+
 
     private boolean isEmpty() {
         return this.root == null;
     }
 
+    @Override
     public boolean contains(E el) {
         return !isEmpty() && this.root.contains(el);
     }
 
+    @Override
     public void add(E el) {
         if (isEmpty()) {
             this.root = new BSTNode<>(el);
@@ -25,9 +28,8 @@ public class BinarySearchTree<E extends Comparable<E>> implements BinarySearchTr
     }
 
     @Override
-    public E remove(E el) {
+    public void remove(E el) {
         this.root = this.root.remove(el);
-        return null;
     }
 
     @Override
