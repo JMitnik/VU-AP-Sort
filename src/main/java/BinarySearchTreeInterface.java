@@ -1,6 +1,7 @@
 import java.util.Iterator;
 
 /**
+ * The main binary search tree data-structure.
  * @elements - objects of type E
  * @structure - linear
  * @domain - The elements in the tree are non-sorted, but satisfy the
@@ -26,7 +27,7 @@ interface BinarySearchTreeInterface<E extends Comparable<E>> {
 
     /**
      * Removes an element from the Binary Search Tree
-     * @pre - The tree should not be empty
+     * @pre - The tree is not empty.
      * @post - The element 'el' has been removed from the Binary Search Tree,
      * and the Binary Search Tree still maintains its property.
      */

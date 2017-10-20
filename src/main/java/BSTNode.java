@@ -5,16 +5,8 @@ public class BSTNode<E extends Comparable<E>> implements BSTNodeInterface<E> {
     private E data;
     private BSTNode<E> left, right;
 
-    BSTNode() {
-        this(null, null, null);
-    }
-
     BSTNode(E data) {
         this(data, null, null);
-    }
-
-    BSTNode(E data, BSTNode<E> left) {
-        this(data, left, null);
     }
 
     BSTNode(E data, BSTNode<E> left, BSTNode<E> right) {
@@ -123,11 +115,6 @@ public class BSTNode<E extends Comparable<E>> implements BSTNodeInterface<E> {
     }
 
     @Override
-    public int numberOfNodes() {
-        return 0;
-    }
-
-    @Override
     public boolean contains(E el) {
         if (this.data.equals(el)) {
             return true;
@@ -140,15 +127,5 @@ public class BSTNode<E extends Comparable<E>> implements BSTNodeInterface<E> {
 
     private boolean checkChild(BSTNodeInterface<E> childNode, E el) {
         return childNode != null && childNode.contains(el);
-    }
-
-    @Override
-    public int depth(E e) {
-        return 0;
-    }
-
-    @Override
-    public BSTNodeInterface<E> copy() {
-        return null;
     }
 }
