@@ -31,7 +31,7 @@ public class sort {
     }
 
     /**
-     * Gets either a descending or ascending iterator according to the set 'optionD'.
+     * Returns either a descending or ascending iterator according to the set 'optionD'.
      */
     private Iterator<Identifier> getIterator() {
         if (optionD) {

@@ -6,11 +6,7 @@ public class IdentifierImp implements Identifier, Comparable<Identifier> {
         this.identifierCharacters = new StringBuffer();
     }
 
-
-    public int compareToIgnoreCase(Identifier identifier) {
-        return this.getIdentifier().compareToIgnoreCase( identifier.getIdentifier() );
-    }
-
+    @Override
     public int compareTo(Identifier identifier) {
         return this.getIdentifier().compareTo( identifier.getIdentifier() );
     }
