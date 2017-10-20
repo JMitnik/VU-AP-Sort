@@ -1,19 +1,20 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class sort {
     private static boolean optionI;
     private static boolean optionD;
-    // private BinarySearchTree<IdentifierImpl> tree;
-    private ArrayList<Identifier> idList = new ArrayList<>(); // remove this when tree is implemented!!
+    private BinarySearchTree<Identifier> tree;
 
     sort() {
         optionI = false;
         optionD = false;
-        // tree = new BinarySearchTree<Identifier>();
+        tree = new BinarySearchTree<>();
     }
+
     /**
      * Toggles the options, throws an exception when option is not recognized
      * or the option is given twice.
@@ -29,41 +30,38 @@ public class sort {
         }
     }
 
+    private Iterator<Identifier> getIterator() {
+        if (optionD) {
+            return tree.descendingIterator();
+        } else {
+            return tree.ascendingIterator();
+        }
+    }
+
     /**
      * Prints the Identifiers that occur an uneven number of times. Each
      * Identifier is followed by an end-of-line. When the option "-i" is passed
      * on invocation of the program, all identifiers are printed in lower case.
      */
     private void printUniq() {
-        /*
-        if (optionD) {
-            ArrayList<Identifier> idList = tree.descendingIterator();
-        } else {
-            ArrayList<Identifier> idList = tree.ascendingIterator();
-        }
-        */
+        Iterator<Identifier> idList = getIterator();
 
-        for (Identifier id: idList) {
-            System.out.println(id.getIdentifierName() );
+        while (idList.hasNext()) {
+            System.out.println(idList.next().getIdentifier());
         }
     }
-
 
     /**
      * Reads all the files given on the command line.
      * @param filelist - A list of the files passed.
      */
-    private void readFiles(ArrayList<File> filelist) throws APException{
+    private void readFiles(ArrayList<File> filelist) throws APException, FileNotFoundException {
         if (filelist.isEmpty()) {
             throw new APException("No files given!");
         }
 
         for ( File file: filelist) {
-            try {
-                readFile(file);
-            } catch (FileNotFoundException error) {
-                System.out.println("File not found! " + file.toString() );
-            }
+            readFile(file);
         }
     }
 
@@ -74,13 +72,13 @@ public class sort {
      * @param file - File that needs to be read.
      */
     private void readFile(File file) throws APException, FileNotFoundException {
-        Scanner filescanner = new Scanner(file);
+        Scanner fileScanner = new Scanner(file);
 
-        while (filescanner.hasNextLine()) {
+        while (fileScanner.hasNextLine()) {
             if (optionI) {
-                readLine(new Scanner( filescanner.nextLine().toLowerCase() ));
+                readLine(new Scanner( fileScanner.nextLine().toLowerCase() ));
             } else {
-                readLine(new Scanner( filescanner.nextLine() ));
+                readLine(new Scanner( fileScanner.nextLine() ));
             }
         }
     }
@@ -111,10 +109,10 @@ public class sort {
      * @return Identifier - The Identifier it extracted and build from the line.
      */
     private Identifier buildIdentifier(Scanner input) {
-        Identifier id = new IdentifierImpl();
+        Identifier id = new IdentifierImp();
 
         while( nextCharIsAlphanumeric(input)) {
-            id.add(nextChar(input));
+            id.addChar(nextChar(input));
         }
 
         return id;
@@ -127,14 +125,11 @@ public class sort {
      * @param id - The identifier it performs the action with
      */
     private void toggleIdentifier(Identifier id) {
-        idList.add( id );
-        /*
         if (tree.contains(id)) {
             tree.remove(id);
         } else {
             tree.add(id);
         }
-        */
     }
 
 
@@ -143,7 +138,7 @@ public class sort {
      * processes them.
      * @param argv - Array of arguments passed on to the program in the terminal
      */
-    private void readArguments( String[] argv ) throws APException{
+    private void readArguments( String[] argv ) throws APException, FileNotFoundException {
         if (argv.length == 0) {
             throw new APException("No arguments given!");
         }
@@ -234,12 +229,12 @@ public class sort {
      * Identifiers that occur in the given files an uneven number of times.
      * @param argv - Array of arguments passed on to the program in the terminal
      */
-    private void start( String[] argv) throws APException {
+    private void start( String[] argv) throws APException, FileNotFoundException {
         readArguments(argv);
         printUniq();
     }
 
-    public static void main(String[] argv) throws APException {
+    public static void main(String[] argv) throws APException, FileNotFoundException {
             new sort().start(argv);
     }
 

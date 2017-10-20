@@ -26,7 +26,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements BinarySearchTr
 
     @Override
     public E remove(E el) {
-        this.root.remove(el);
+        this.root = this.root.remove(el);
         return null;
     }
 
